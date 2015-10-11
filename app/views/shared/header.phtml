@@ -57,8 +57,8 @@
             <?php endif; ?>
 
             <?php if (Users::getCurrent() && Users::getCurrent()->hasSelfRole('admin')) : ?>
-                <p class="navbar-text pull-right">
-                    <a href="/admin/index" title="Administration">Admin</a>
+                <p class="navbar-text pull-left">
+                    <a href="/admin/index" title="Administration"><strong>Admin</strong></a>
                 </p>
             <?php endif; ?>
         </div>
