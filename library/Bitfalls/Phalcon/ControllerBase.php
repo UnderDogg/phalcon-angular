@@ -9,10 +9,23 @@ use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\Dispatcher;
 
 /**
- * Class ControllerBase
+ * ControllerBase
+ * This is the base controller for all controllers in the application
  */
 class ControllerBase extends Controller
 {
+
+
+  /**
+   *  Initializes the BaseController, which is the Base of all Controllers in InvoBegins
+   *
+   * @todo Get Title from the Settings table and prepend that title
+   */
+  protected function initialize() {
+    //$this->tag->prependTitle('INVO MultiModule | ');
+    //$this->view->setTemplateBefore('private');
+  }
+
 
     /**
      * @param Dispatcher $dispatcher
@@ -105,16 +118,18 @@ class ControllerBase extends Controller
      * @param $aArray
      * @return array
      */
-    protected function buildSearchParams($aArray)
+    protected function buildSearchParams($aArray, $aBasics)
     {
         $aSearchParams = array();
 
+      if(!isset($aBasics)) {
         $aBasics = array(
-            array('limit', 'int', 50),
-            array('page', 'int', 1),
-            array('sort', 'string', 'main.id'),
-            array('order', 'string', 'DESC')
+          array('limit', 'int', 50),
+          array('page', 'int', 1),
+          array('sort', 'string', 'main.id'),
+          array('order', 'string', 'DESC')
         );
+      }
 
         foreach ($aBasics as $aBasic) {
             $dispatchedBasic = $this->dispatcher->getParam($aBasic[0], $aBasic[1]);
@@ -140,7 +155,6 @@ class ControllerBase extends Controller
                 $aSearchParams[$sParam] = $param;
             }
         }
-
         return $aSearchParams;
     }
 

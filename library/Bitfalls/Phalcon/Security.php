@@ -77,19 +77,20 @@ class Security extends Plugin
             Users::setCurrent($oLoggedInUser);
         }
 
-
-$dispatchernamespace = $dispatcher->getNamespaceName();
-print_r($dispatchernamespace);
+      /*
+        $dispatchernamespace = $dispatcher->getNamespaceName();
+        print_r($dispatchernamespace);
+      */
 
         $sModuleName = strtolower(explode('\\', $dispatcher->getNamespaceName())[1]);
         if ($sModuleName != 'frontend' && !$oLoggedInUser) {
             if ($this->getDI()->get('request')->isAjax()) {
                 die(json_encode(array('status' => 'error', 'message' => 'Insufficient permissions')));
             } else {
-                echo "modulename ".$sModuleName." not frontend?";
-                exit;
-                //$this->getDI()->get('response')->redirect('/users/login', true);
-                //return false;
+                //echo "modulename ".$sModuleName." not frontend?";
+                //exit;
+                $this->getDI()->get('response')->redirect('/users/login', true);
+                return false;
             }
         }
 

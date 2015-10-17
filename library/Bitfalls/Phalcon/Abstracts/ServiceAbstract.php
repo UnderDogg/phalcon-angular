@@ -42,18 +42,24 @@ abstract class ServiceAbstract
 
         $sQuery = sprintf($sQuery, $sFields);
 
-        $aRows = $this->getDb()
-            ->query($sQuery, $aBind)
-            ->fetchAll();
+        //echo "for debug purposes : the query is ".$sQuery."<br />";
+
+        $result = $this->getDb()->query($sQuery, $aBind);
+        $result->setFetchMode(\Phalcon\Db::FETCH_ASSOC);
+        $aRows = $result->fetchAll();
+
+        //echo "for debug purposes : the query is<br />";
+
+
+/*
+        $result = parent::query($sqlStatement, $bindParams, $bindTypes);
+        $result->setFetchMode(\Phalcon\Db::FETCH_ASSOC);
+        return $result;
+ **/
+
         if (strpos($sQuery, 'SQL_CALC_FOUND_ROWS')) {
             $iRowCount = $this->getDb()->fetchOne('SELECT FOUND_ROWS() as `found`');
             $iRowCount = (isset($iRowCount['found'])) ? (int)$iRowCount['found'] : 0;
-        }
-
-        foreach ($aRows as &$aRow) {
-            foreach ($aRow as $k => &$v) {
-                if (is_numeric($k)) unset($aRow[$k]);
-            }
         }
 
         $r = new Result($aRows, $iRowCount);

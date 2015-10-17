@@ -1,0 +1,62 @@
+<?php
+/** @var \Bitfalls\Objects\Result $result */
+/** @var \Bitfalls\Utilities\Pagination $pagination */
+?>
+
+<h3>Administrations: <?php echo $result->count(); ?> found</h3>
+
+<form method="get" ng-non-bindable class="form-search">
+    <input
+        type="text"
+        class="input-medium search-query"
+        name="q"
+        placeholder="Search"
+        value="<?php if (isset($result->getSearchParams()['q'])) echo $result->getSearchParams()['q']; ?>"
+        />
+    <button type="submit" class="btn">Search</button>
+</form>
+
+<?= $pagination; ?>
+
+<table class="bitfalls-datagrid table-bordered table-condensed table-striped table-hover">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Administration</th>
+        <th>Company Name</th>
+        <th>Activated</th>
+        <th>Created</th>
+        <th>Options</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php /** @var \Administrations $oAdministration */ ?>
+    <?php foreach ($result as $oAdministration) : ?>
+        <tr>
+            <td><?php echo $oAdministration->getId(); ?></td>
+            <td><?php echo $oAdministration->getAdminNr(); ?></td>
+            <td>
+                <?php
+                    if ($oAdministration->relation) {
+                        echo '<a href="/admin/relations/list/id/' . $oAdministration->relation->getId() . '">' . $oAdministration->relation->getFullName() . "</a>";
+                    } else {
+                        echo '<span class="nope">&times;</span>';
+                    }
+                ?>
+            </td>
+            <td><?php echo ((bool)$oAdministration->getActivatedOn()) ? $oAdministration->getActivatedOn() : "<span class='nope'>&times;</span>"; ?></td>
+            <td><?php echo $oAdministration->getCreatedOn(); ?></td>
+            <td>
+                <a href="/admin/administrations/upsert/id/<?php echo $oAdministration->getId(); ?>">Edit</a>
+                <?php if (!(bool)$oAdministration->relation) : ?>
+                    |
+                    <a onclick="return confirm('Are you sure? This cannot be undone!');"
+                       href="/admin/administrations/delete/id/<?php echo $oAdministration->getId(); ?>">Delete</a>
+                <?php endif; ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+
+<?php echo $pagination; ?>

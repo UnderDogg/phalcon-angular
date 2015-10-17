@@ -93,14 +93,6 @@ $di->set('cookies', function () {
 /**
  * Dispatcher use a default namespace
  */
-$di->set('dispatcher', function () {
-  $dispatcher = new Dispatcher();
-  $dispatcher->setDefaultNamespace('Vokuro\Controllers');
-  return $dispatcher;
-});
-
-
-
 $di->set('dispatcher', function () use ($di) {
 
   $eventsManager = $di->getShared('eventsManager');
@@ -164,6 +156,31 @@ $di->set('router', function () {
     'action'     => 'myaccount',
   ));
 
+  $router->add('/admin/administrations/list', array(
+    'namespace'  => 'Modules\Administrations\Controllers',
+    'module'     => 'administrations',
+    'controller' => 'administrations',
+    'action'     => 'list',
+  ));
+
+/*
+$router->add('/:controller/:action/:params', array(
+  'namespace'  => 'Frontend\Controllers',
+  'module'     => 'frontend',
+  'controller' => 1,
+  'action'     => 2,
+  'params'     => 3
+ **/
+
+  $router->add('/admin/administrations/upsert/:params', array(
+    'namespace'  => 'Modules\Administrations\Controllers',
+    'module'     => 'administrations',
+    'controller' => 'administrations',
+    'action'     => 'upsert',
+    'params'     => 1
+  ));
+
+
   $router->setDefaultModule('frontend');
   return $router;
 }); /* End the Router Support */
@@ -181,7 +198,9 @@ $aServices = array(
   // App specific
   'orders',
   'product',
-  'sku');
+  'sku',
+  'administrations',
+);
 
 foreach ($aServices as $sService) {
   $di->setShared($sService . 'Service', function () use ($sService) {

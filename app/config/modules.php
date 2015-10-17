@@ -20,5 +20,10 @@ $application->registerModules(
       'className' => 'Modules\Backend\Module',
       'path'      => APP_DIR . '/backend/Module.php',
     ),
+    'administrations' => array(
+      'namespace' => 'Modules\Administrations',
+      'className' => 'Modules\Administrations\Module',
+      'path'      => APP_DIR . '/modules/administrations/Module.php',
+    ),
   )
 );  /* End register modules --------------------------------------------------------------------*/

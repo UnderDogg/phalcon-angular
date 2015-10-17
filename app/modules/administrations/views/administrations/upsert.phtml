@@ -1,0 +1,23 @@
+<?php
+/** @var Administrations $administration */
+/** @var string $sHeading */
+?>
+<!-- /views/administrations/upsert.phtml -->
+<h3><?php echo $sHeading; ?></h3>
+
+<form class="form-horizontal" ng-non-bindable action="" method="post">
+    <input type="hidden" value="<?php echo $administration->getId(); ?>" name="id" />
+
+    <div class="control-group">
+        <label class="control-label" for="companyname">companyname</label>
+        <div class="controls">
+            <input
+                type="companyname"
+                name="companyname"
+                id="companyname"
+                placeholder="CompanyName"
+                value="<?php echo $administration->getCompanyName(); ?>"
+                >
+        </div>
+    </div>
+</form>

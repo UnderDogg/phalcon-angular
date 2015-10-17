@@ -44,6 +44,16 @@ class ModuleConfig implements ModuleDefinitionInterface
         $sModuleName = explode(DIRECTORY_SEPARATOR, trim($this->getReflectionPath(), '/'));
         $sModuleName = array_pop($sModuleName);
         //$dispatcher->setDefaultNamespace(ucfirst($sModuleName)."\Controllers\\");
+
+/*
+        echo "for debug purposes : the dispatchernamespace is:<br />";
+        echo "<pre>";
+        print_r($dispatcher->getControllerName());
+        echo "</pre>";
+        echo "my current modulename is ".$sModuleName."<br />";
+*/
+
+
         $di->set('dispatcher', $dispatcher);
 
         //Registering the view component
@@ -52,7 +62,7 @@ class ModuleConfig implements ModuleDefinitionInterface
         $path = $this->getReflectionPath();
         $view->setViewsDir($path . 'views/');
         $view->setLayoutsDir('../../views/layouts/');
-        $view->setPartialsDir('../../views/shared/');
+        $view->setPartialsDir('../../views/partials/');
         $view->setVar('moduleName', $sModuleName);
         $view->setVar('bLoadModuleMenu', true);
         $di->set('view', $view);

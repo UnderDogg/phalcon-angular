@@ -20,7 +20,7 @@ class ContactsController extends ControllerBase
     {
         $aSearchParams = $this->buildSearchParams(array(
             'q' => 'string', 'id' => 'int'
-        ));
+        ), array());
 
         /** @var ContactsService $oService */
         $oService = $this->di->get('contactsService');
@@ -53,7 +53,7 @@ class ContactsController extends ControllerBase
             $oContactsModel = $oContactsModel->findFirst(
                 array('id = :id:', 'bind' => array('id' => $id))
             );
-            $this->view->setVar('sHeading', 'Edit the contact "' . $oContactsModel->getEmail() . '"');
+            $this->view->setVar('sHeading', 'Edit the (o for christ sake!) contact "' . $oContactsModel->getEmail() . '"');
         } else {
             $this->view->setVar('sHeading', 'Insert a new contact');
         }

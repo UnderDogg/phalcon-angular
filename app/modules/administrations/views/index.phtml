@@ -26,17 +26,14 @@
 </head>
 
 <body>
-
-<?php echo $this->partial('shared/angularviews'); ?>
-
 <!--[if lte IE 7]>
 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to
     improve your experience.</p>
 <![endif]-->
 
-<div class="container-fluid" ng-controller="AppCtrl">
-    <?php echo $this->partial('shared/header'); ?>
+<div class="container-fluid" ng-controller="AdministrationsCtrl">
+    <?php echo $this->partial('header'); ?>
 
     <div class="main-content p1020">
         <error></error>
@@ -46,10 +43,20 @@
     </div>
 </div>
 
+<script src="/js/vendor/jquery-2.0.1.min.js"></script>
 <script src="/js/vendor/angular.min.js"></script>
+<script src="/js/components/shoppingcart.js"></script>
+<script src="/js/vendor/angular-ui.min.js"></script>
 <script src="/js/vendor/ui-bootstrap-tpls-0.2.0.min.js"></script>
 <script src="/js/vendor/typeahead.js"></script>
 <script src="/js/plugins.js"></script>
+<script src="/js/helpers.js"></script>
 <script src="/js/main.js"></script>
+<script src="/js/directives.js"></script>
+<script src="/js/services.js"></script>
+<script src="/js/controllers.js"></script>
+
+
+
 </body>
 </html>
